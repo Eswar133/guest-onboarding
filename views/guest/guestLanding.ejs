@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Landing Page</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome to <%= hotel.name %></h2>
+        <div class="hotel-details">
+            <p><strong>Address:</strong> <%= hotel.address %></p>
+            <% if (hotel.logo) { %>
+                <img src="/uploads/<%= hotel.logo %>" alt="Hotel Logo" style="max-width: 200px;">
+            <% } else { %>
+                <p>No logo available.</p>
+            <% } %>
+        </div>
+
+        <h3>Please Fill Out the Guest Form</h3>
+
+        <% if (message.length > 0) { %>
+            <div class="alert alert-danger"><%= message[0] %></div>
+        <% } %>
+        
+        <form action="/guest-landing/<%= hotel._id %>" method="POST">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+            <div class="form-group">
+                <label for="mobileNumber">Mobile Number</label>
+                <input type="text" id="mobileNumber" name="mobileNumber" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="purpose">Purpose of Visit</label>
+                <select id="purpose" name="purpose" required>
+                    <option value="Business">Business</option>
+                    <option value="Personal">Personal</option>
+                    <option value="Tourist">Tourist</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="stayDatesFrom">Stay Dates (From)</label>
+                <input type="date" id="stayDatesFrom" name="stayDatesFrom" required>
+            </div>
+            <div class="form-group">
+                <label for="stayDatesTo">Stay Dates (To)</label>
+                <input type="date" id="stayDatesTo" name="stayDatesTo" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email ID</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="idProofNumber">ID Proof Number</label>
+                <input type="text" id="idProofNumber" name="idProofNumber" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

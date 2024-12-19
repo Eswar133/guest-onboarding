@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Details</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="navbar">
+        <h1>Guest Admin Panel</h1>
+        <div>
+            <a href="/auth/logout">Logout</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>All Guest Details</h2>
+
+        <% if (guests.length === 0) { %>
+            <p>No guests have registered yet.</p>
+        <% } else { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Mobile Number</th>
+                        <th>Address</th>
+                        <th>Purpose</th>
+                        <th>Stay Dates</th>
+                        <th>Email</th>
+                        <th>ID Proof</th>
+                        <th>Hotel</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% guests.forEach(guest => { %>
+                        <tr>
+                            <td><%= guest.fullName %></td>
+                            <td><%= guest.mobileNumber %></td>
+                            <td><%= guest.address %></td>
+                            <td><%= guest.purpose %></td>
+                            <td><%= guest.stayDates.from %> - <%= guest.stayDates.to %></td>
+                            <td><%= guest.email %></td>
+                            <td><%= guest.idProofNumber %></td>
+                            <td><%= guest.hotel.name %></td>
+                            <td>
+                                <button class="action-btn edit">Edit</button>
+                                <button class="action-btn view" onclick="printGuestDetails()">Print</button>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        <% } %>
+    </div>
+    <script src="/js/scripts.js"></script>
+</body>
+</html>

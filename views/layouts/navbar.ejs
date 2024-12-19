@@ -1,0 +1,18 @@
+<nav class="navbar">
+    <div class="navbar-brand">
+        <a href="/">Digital Guest Onboarding</a>
+    </div>
+    <div class="navbar-links">
+        <% if (!user) { %>
+            <a href="/auth/login">Login</a>
+            <a href="/auth/signup">Signup</a>
+        <% } else { %>
+            <% if (user.role === 'Main Admin') { %>
+                <a href="/hotels">Manage Hotels</a>
+            <% } else if (user.role === 'Guest Admin') { %>
+                <a href="/all-guests">Guest Details</a>
+            <% } %>
+            <a href="/auth/logout">Logout</a>
+        <% } %>
+    </div>
+</nav>
