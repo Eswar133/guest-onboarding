@@ -105,7 +105,7 @@ guest-onboarding/
 |   ├── guestAdmin/    # GuestAdmin-specific templates
 │   └── layouts/       # Shared layouts
 ├── .env               # Environment variables
-├── app.js             # Application entry point
+├── server.js             # Application entry point
 ├── package.json       # Dependencies and scripts
 └── README.md          # Project documentation
 ```
