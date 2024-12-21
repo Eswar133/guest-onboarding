@@ -5,9 +5,13 @@ exports.renderSignup = (req, res) => {
     res.render('auth/signup', { message: req.flash('message') });
 };
 
-
 exports.signup = async (req, res) => {
     const { username, password, role } = req.body;
+
+    if (role === 'Guest') {
+        req.flash('message', 'Guest signup is not allowed!');
+        return res.redirect('/auth/signup');
+    }
 
     try {
         const user = new User({ username, password, role });
@@ -15,10 +19,12 @@ exports.signup = async (req, res) => {
         req.flash('message', 'Signup successful! Please log in.');
         res.redirect('/auth/login');
     } catch (err) {
-        req.flash('message', 'Given username already exists try new one');
+        req.flash('message', 'Given username already exists. Try a new one.');
         res.redirect('/auth/signup');
     }
 };
+
+
 
 
 exports.renderLogin = (req, res) => {

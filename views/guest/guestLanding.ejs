@@ -4,12 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guest Landing Page</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #f1f1f1;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            margin: 30px auto;
+            width: 100%;
+            max-width: 800px;
+        }
+        .hotel-details {
+            margin-bottom: 20px;
+        }
+        .hotel-details img {
+            border-radius: 10px;
+        }
+        .form-group label {
+            color: #bdbdbd;
+        }
+        .btn {
+            background-color: #4caf50;
+            color: white;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        textarea {
+            resize: none;
+        }
+        select {
+            background-color: #1e1e1e;
+            color: #f1f1f1;
+            border: 1px solid #444;
+            padding: 5px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h2>Welcome to <%= hotel.name %></h2>
-        <div class="hotel-details">
+        <h2 class="text-center">Welcome to <%= hotel.name %></h2>
+        <div class="hotel-details text-center">
             <p><strong>Address:</strong> <%= hotel.address %></p>
             <% if (hotel.logo) { %>
                 <img src="/uploads/<%= hotel.logo %>" alt="Hotel Logo" style="max-width: 200px;">
@@ -18,49 +62,55 @@
             <% } %>
         </div>
 
-        <h3>Please Fill Out the Guest Form</h3>
+        <h3 class="text-center">Please Fill Out the Guest Form</h3>
 
-        
-        
+        <% if (!user) { %>
+            <p class="text-center">Welcome! Please fill out the form below to book your stay.</p>
+        <% } else { %>
+            <p class="text-center">Welcome back, <%= user.username %>!</p>
+        <% } %>
+
         <form action="/guest-landing/<%= hotel._id %>" method="POST">
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" name="fullName" required>
+                <input type="text" id="fullName" name="fullName" class="form-control" required>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="mobileNumber">Mobile Number</label>
-                <input type="text" id="mobileNumber" name="mobileNumber" required>
+                <input type="text" id="mobileNumber" name="mobileNumber" class="form-control" required>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="address">Address</label>
-                <textarea id="address" name="address" required></textarea>
+                <textarea id="address" name="address" class="form-control" rows="3" required></textarea>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="purpose">Purpose of Visit</label>
-                <select id="purpose" name="purpose" required>
+                <select id="purpose" name="purpose" class="form-select" required>
                     <option value="Business">Business</option>
                     <option value="Personal">Personal</option>
                     <option value="Tourist">Tourist</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="stayDatesFrom">Stay Dates (From)</label>
-                <input type="date" id="stayDatesFrom" name="stayDatesFrom" required>
+                <input type="date" id="stayDatesFrom" name="stayDatesFrom" class="form-control" required>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="stayDatesTo">Stay Dates (To)</label>
-                <input type="date" id="stayDatesTo" name="stayDatesTo" required>
+                <input type="date" id="stayDatesTo" name="stayDatesTo" class="form-control" required>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="email">Email ID</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" class="form-control" required>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label for="idProofNumber">ID Proof Number</label>
-                <input type="text" id="idProofNumber" name="idProofNumber" required>
+                <input type="text" id="idProofNumber" name="idProofNumber" class="form-control" required>
             </div>
-            <button type="submit">Submit</button>
+            <button type="submit" class="btn btn-block w-100">Submit</button>
         </form>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

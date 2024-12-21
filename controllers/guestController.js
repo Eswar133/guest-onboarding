@@ -19,6 +19,7 @@ exports.renderGuestLanding = async (req, res) => {
     }
 };
 
+
 // Submit Guest Form
 exports.submitGuestForm = async (req, res) => {
     const { hotelId } = req.params;

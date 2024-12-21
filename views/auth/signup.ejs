@@ -4,46 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Signup</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #f1f1f1;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .form-group label {
+            color: #bdbdbd;
+        }
+        .btn {
+            background-color: #4caf50;
+            color: white;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        a {
+            color: #03a9f4;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .alert {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h2>Signup</h2>
+        <h2 class="text-center">Signup</h2>
 
         <% if (message && message.length > 0) { %>
-    <div class="alert alert-danger"><%= message[0] %></div>
-<% } %>
+        <div class="alert alert-danger text-center"><%= message[0] %></div>
+        <% } %>
 
+        <form action="/auth/signup" method="POST">
+            <div class="form-group mb-3">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" class="form-control" required>
+            </div>
+            <div class="form-group mb-3">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <div class="form-group mb-3">
+                <label>Role</label>
+                <div class="form-check">
+                    <input type="radio" id="mainAdmin" name="role" value="Main Admin" class="form-check-input" required>
+                    <label for="mainAdmin" class="form-check-label">Main Admin</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" id="guestAdmin" name="role" value="Guest Admin" class="form-check-input" required>
+                    <label for="guestAdmin" class="form-check-label">Guest Admin</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-block w-100">Signup</button>
+        </form>
 
-<form action="/auth/signup" method="POST">
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" required>
+        <p class="text-center mt-3">Already have an account? <a href="/auth/login">Login</a></p>
     </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
-    </div>
-    <div class="form-group">
-        <label>Role</label>
-        <div>
-            <input type="radio" id="mainAdmin" name="role" value="Main Admin" required>
-            <label for="mainAdmin">Main Admin</label>
-        </div>
-        <div>
-            <input type="radio" id="guestAdmin" name="role" value="Guest Admin" required>
-            <label for="guestAdmin">Guest Admin</label>
-        </div>
-        <div>
-            <input type="radio" id="guest" name="role" value="Guest" required>
-            <label for="guest">Guest</label>
-        </div>
-    </div>
-    <button type="submit">Signup</button>
-</form>
 
-
-        <p>Already have an account? <a href="/auth/login">Login</a></p>
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
