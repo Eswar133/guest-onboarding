@@ -12,12 +12,20 @@ exports.renderGuestLanding = async (req, res) => {
             req.flash('message', 'Hotel not found!');
             return res.redirect('/');
         }
-        res.render('guest/guestLanding', { hotel, message: req.flash('message') });
+
+        // Pass the user object from the session to the template
+        res.render('guest/guestLanding', {
+            hotel,
+            message: req.flash('message'),
+            user: req.session.user || null // Pass null if user is not logged in
+        });
     } catch (err) {
+        console.error('Error in renderGuestLanding:', err);
         req.flash('message', 'Error loading landing page: ' + err.message);
         res.redirect('/');
     }
 };
+
 
 
 // Submit Guest Form
