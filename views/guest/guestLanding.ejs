@@ -20,9 +20,7 @@
 
         <h3>Please Fill Out the Guest Form</h3>
 
-        <% if (message.length > 0) { %>
-            <div class="alert alert-danger"><%= message[0] %></div>
-        <% } %>
+        
         
         <form action="/guest-landing/<%= hotel._id %>" method="POST">
             <div class="form-group">
