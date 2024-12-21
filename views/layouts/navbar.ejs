@@ -4,14 +4,20 @@
     </div>
     <div class="navbar-links">
         <% if (!user) { %>
+            <!-- Links for unauthenticated users -->
             <a href="/auth/login">Login</a>
             <a href="/auth/signup">Signup</a>
         <% } else { %>
+            <!-- Links based on user roles -->
             <% if (user.role === 'Main Admin') { %>
                 <a href="/hotels">Manage Hotels</a>
+                <a href="/hotels/add">Add Hotel</a>
             <% } else if (user.role === 'Guest Admin') { %>
-                <a href="/all-guests">Guest Details</a>
+                <a href="/all-guests">Manage Guests</a>
+            <% } else if (user.role === 'Guest') { %>
+                <a href="/guests/bookings">My Bookings</a>
             <% } %>
+            <!-- Logout link available for all roles -->
             <a href="/auth/logout">Logout</a>
         <% } %>
     </div>

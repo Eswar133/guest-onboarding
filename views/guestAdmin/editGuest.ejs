@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Guest</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Guest Information</h2>
+
+        <% if (message && message.length > 0) { %>
+            <div class="alert alert-danger"><%= message[0] %></div>
+        <% } %>
+
+        <form action="/edit-guest/<%= guest._id %>" method="POST">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" value="<%= guest.fullName %>" required>
+            </div>
+            <div class="form-group">
+                <label for="mobileNumber">Mobile Number</label>
+                <input type="text" id="mobileNumber" name="mobileNumber" value="<%= guest.mobileNumber %>" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" required><%= guest.address %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="purpose">Purpose</label>
+                <select id="purpose" name="purpose" required>
+                    <option value="Business" <%= guest.purpose === 'Business' ? 'selected' : '' %>>Business</option>
+                    <option value="Personal" <%= guest.purpose === 'Personal' ? 'selected' : '' %>>Personal</option>
+                    <option value="Tourist" <%= guest.purpose === 'Tourist' ? 'selected' : '' %>>Tourist</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="stayDatesFrom">Stay Dates (From)</label>
+                <input type="date" id="stayDatesFrom" name="stayDatesFrom" value="<%= guest.stayDates.from.toISOString().split('T')[0] %>" required>
+            </div>
+            <div class="form-group">
+                <label for="stayDatesTo">Stay Dates (To)</label>
+                <input type="date" id="stayDatesTo" name="stayDatesTo" value="<%= guest.stayDates.to.toISOString().split('T')[0] %>" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email ID</label>
+                <input type="email" id="email" name="email" value="<%= guest.email %>" required>
+            </div>
+            <div class="form-group">
+                <label for="idProofNumber">ID Proof Number</label>
+                <input type="text" id="idProofNumber" name="idProofNumber" value="<%= guest.idProofNumber %>" required>
+            </div>
+            <button type="submit" class="action-btn edit">Update</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -17,6 +17,10 @@
     <div class="container">
         <h2>All Guest Details</h2>
 
+        <% if (message && message.length > 0) { %>
+            <div class="alert alert-danger"><%= message[0] %></div>
+        <% } %>
+
         <% if (guests.length === 0) { %>
             <p>No guests have registered yet.</p>
         <% } else { %>
@@ -44,11 +48,12 @@
                             <td><%= guest.stayDates.from %> - <%= guest.stayDates.to %></td>
                             <td><%= guest.email %></td>
                             <td><%= guest.idProofNumber %></td>
-                            <td><%= guest.hotel.name %></td>
+                            <td><%= guest.hotel ? guest.hotel.name : 'N/A' %></td>
                             <td>
-                                <button class="action-btn edit">Edit</button>
+                                <a href="/edit-guest/<%= guest._id %>" class="action-btn edit">Edit</a>
                                 <button class="action-btn view" onclick="printGuestDetails()">Print</button>
                             </td>
+                            
                         </tr>
                     <% }); %>
                 </tbody>

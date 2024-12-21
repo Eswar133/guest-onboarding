@@ -25,12 +25,14 @@ exports.addHotel = async (req, res) => {
 exports.getAllHotels = async (req, res) => {
     try {
         const hotels = await Hotel.find();
-        res.render('admin/hotels', { hotels });
+        res.render('admin/hotels', { hotels, user: req.session.user }); // Pass user data
     } catch (err) {
+        console.error('Error fetching hotels:', err.message);
         req.flash('message', 'Error fetching hotels: ' + err.message);
         res.redirect('/');
     }
 };
+
 
 
 exports.generateQRCode = async (req, res) => {

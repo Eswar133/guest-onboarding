@@ -46,12 +46,15 @@ exports.login = async (req, res) => {
             return res.redirect('/hotels');
         } else if (user.role === 'Guest Admin') {
             return res.redirect('/all-guests');
+        } else if (user.role === 'Guest') {
+            return res.redirect('/hotels'); // Redirect to guest landing page
         }
     } catch (err) {
         req.flash('message', 'Error during login: ' + err.message);
         res.redirect('/auth/login');
     }
 };
+
 
 // Handle logout
 exports.logout = (req, res) => {
