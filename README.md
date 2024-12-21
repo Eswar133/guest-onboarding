@@ -102,6 +102,7 @@ guest-onboarding/
 │   ├── admin/         # Admin-specific templates
 │   ├── auth/          # Authentication templates
 │   ├── guest/         # Guest-specific templates
+|   ├── guestAdmin/    # GuestAdmin-specific templates
 │   └── layouts/       # Shared layouts
 ├── .env               # Environment variables
 ├── app.js             # Application entry point
