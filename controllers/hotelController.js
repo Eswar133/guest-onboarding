@@ -14,7 +14,7 @@ exports.addHotel = async (req, res) => {
         const hotel = new Hotel({ name, address, logo });
 
         // Generate QR code
-        const qrCodeData = await QRCode.toDataURL(`https://guest-onboarding-38kp.onrender.com//guest-landing/${hotel._id}`);
+        const qrCodeData = await QRCode.toDataURL(`https://guest-onboarding-38kp.onrender.com/guest-landing/${hotel._id}`);
         hotel.qrCode = qrCodeData;
 
         // Save the hotel with the QR code
