@@ -1,35 +1,36 @@
 # Guest Onboarding System
 
-A web-based application to manage hotels and guest details. The system provides a platform for hotel admins to add hotels, generate QR codes for each hotel, and for guests to fill out forms via QR code landing pages.
+A comprehensive web application to manage hotels and guest information. The system provides features for hotel administrators to manage hotels and their guests efficiently, with QR code-based onboarding and a user-friendly interface.
 
 ---
 
 ## Features
 
 1. **Admin Panel**:
-   - Add new hotels with logos.
-   - View all registered hotels in a table.
-   - Generate unique QR codes for each hotel.
-   - QR codes redirect to hotel-specific landing pages.
+   - Add, view, and edit hotels with logos.
+   - Generate unique QR codes for hotels.
+   - Manage and view registered guests.
 
 2. **Guest Panel**:
-   - Fill out a form with personal details, purpose of visit, and stay dates.
-   - View a thank-you page after submission.
+   - Access hotel-specific landing pages via QR codes.
+   - Fill out personalized forms with details like name, purpose, stay dates, and more.
+   - View a confirmation page after submission.
 
 3. **Authentication**:
-   - Sign up and log in as Admin or Guest.
+   - Role-based sign-up and login (Main Admin, Guest Admin).
 
-4. **Dynamic Routes**:
-   - Hotel-specific routes for QR code landing pages.
+4. **Dynamic Routing**:
+   - Generate and access unique hotel routes for QR code functionality.
 
-5. **Responsive UI**:
-   - Modern, mobile-friendly design using CSS.
+5. **Enhanced User Experience**:
+   - Modern, responsive UI with a dark theme.
+   - Mobile-friendly design for ease of use.
 
 ---
 
 ## Technologies Used
 
-- **Frontend**: EJS (Embedded JavaScript Templates), HTML, CSS
+- **Frontend**: EJS (Embedded JavaScript Templates), HTML, CSS, Bootstrap
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB
 - **QR Code Generation**: `qrcode` npm package
@@ -91,7 +92,6 @@ guest-onboarding/
 │   ├── Hotel.js
 │   └── Guest.js
 ├── public/            # Public assets
-│   ├── css/           # Stylesheets
 │   ├── js/            # JavaScript
 │   └── uploads/       # Uploaded files
 ├── routes/            # Application routes
@@ -105,7 +105,7 @@ guest-onboarding/
 |   ├── guestAdmin/    # GuestAdmin-specific templates
 │   └── layouts/       # Shared layouts
 ├── .env               # Environment variables
-├── server.js             # Application entry point
+├── server.js          # Application entry point
 ├── package.json       # Dependencies and scripts
 └── README.md          # Project documentation
 ```
@@ -118,10 +118,12 @@ guest-onboarding/
 - **Add a Hotel**: Navigate to `/hotels/add`, fill out the form, and submit.
 - **View Hotels**: View a table of all registered hotels.
 - **Generate QR Codes**: Click "Generate QR Code" for a specific hotel.
+- **Edit Hotel Details**: Navigate to `/hotels/edit/:hotelId` to update hotel information.
+- **Manage Guests**: View and manage all registered guests.
 
 ### 2. Guest Panel
 - **Scan QR Code**: Scan the QR code to access the hotel-specific landing page.
-- **Fill Guest Form**: Complete the form and submit.
+- **Fill Guest Form**: Complete the form with details such as full name, purpose of visit, and stay dates.
 - **Thank You Page**: View confirmation of submission.
 
 ---
@@ -133,15 +135,35 @@ guest-onboarding/
 - `POST /auth/login` - Authenticate user
 - `GET /auth/signup` - Render signup page
 - `POST /auth/signup` - Register a new user
+- `GET /auth/logout` - Log out the user
 
 ### Hotel Routes
 - `GET /hotels` - List all hotels
 - `GET /hotels/add` - Render add hotel form
 - `POST /hotels/add` - Add a new hotel
 - `GET /hotels/generate-qr/:hotelId` - Generate QR code for a hotel
+- `GET /hotels/edit/:hotelId` - Render edit hotel form
+- `POST /hotels/edit/:hotelId` - Update hotel details
 
 ### Guest Routes
 - `GET /guest-landing/:hotelId` - Render guest landing page
 - `POST /guest-landing/:hotelId` - Submit guest form
-- `GET /all-guests` - List all guests
+- `GET /guests` - List all guests
+- `GET /guests/edit/:guestId` - Render edit guest form
+- `POST /guests/edit/:guestId` - Update guest details
 
+---
+
+## New Features Added
+
+1. **Hotel Editing**:
+   - Admins can update hotel details, including the logo.
+
+2. **Guest Management**:
+   - Admins can view, edit, and manage all guest details.
+
+3. **Improved Authentication**:
+   - Role-based access control for enhanced security.
+
+4. **Dark Theme UI**:
+   - Modern and visually appealing interface with responsive design.
