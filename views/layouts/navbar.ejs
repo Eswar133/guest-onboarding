@@ -4,10 +4,11 @@
     </div>
     <div class="navbar-links">
         <% if (!user) { %>
+            <!-- Links for unauthenticated users -->
             <a href="/">Home</a>
             <a href="/auth/login">Login</a>
-            <a href="/auth/signup">Signup</a>
         <% } else { %>
+            <!-- Links for authenticated users based on their role -->
             <% if (user.role === 'Main Admin') { %>
                 <a href="/hotels">Manage Hotels</a>
             <% } else if (user.role === 'Guest Admin') { %>

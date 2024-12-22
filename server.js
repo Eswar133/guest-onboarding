@@ -6,6 +6,7 @@ const flash = require('connect-flash');
 const dotenv = require('dotenv');
 const path = require('path');
 
+
 // Load environment variables
 dotenv.config();
 
@@ -44,9 +45,19 @@ app.use('/hotels', hotelRoutes);
 app.use('/', guestRoutes);
 
 // Home Route
-app.get('/', (req, res) => {
-    res.redirect('/auth/login');
+// Home Route
+const Hotel = require('./models/Hotel'); // Ensure the Hotel model is imported
+
+app.get('/', async (req, res) => {
+    try {
+        const hotels = await Hotel.find(); // Fetch all hotels
+        res.render('guest/home', { hotels, user: req.session.user }); // Render home page with hotels
+    } catch (err) {
+        console.error('Error fetching hotels:', err.message);
+        res.redirect('/auth/login');
+    }
 });
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
