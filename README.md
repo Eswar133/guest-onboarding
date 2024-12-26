@@ -138,7 +138,7 @@ guest-onboarding/
 - `GET /auth/logout` - Log out the user
 
 ### Hotel Routes
-- `GET /hotels` - List all hotels
+- `GET /hotels` - List all hotels (available for guests without login)
 - `GET /hotels/add` - Render add hotel form
 - `POST /hotels/add` - Add a new hotel
 - `GET /hotels/generate-qr/:hotelId` - Generate QR code for a hotel

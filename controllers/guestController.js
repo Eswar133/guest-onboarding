@@ -26,6 +26,15 @@ exports.renderGuestLanding = async (req, res) => {
     }
 };
 
+exports.showHotelsForGuests = async (req, res) => {
+    try {
+        const hotels = await Hotel.find(); // Fetch all hotels
+        res.render('guest/hotelDetails', { hotels });
+    } catch (err) {
+        console.error('Error fetching hotels for guests:', err.message);
+        res.status(500).send('An error occurred while loading hotel details.');
+    }
+};
 
 
 // Submit Guest Form

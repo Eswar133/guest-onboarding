@@ -11,6 +11,6 @@ router.post('/edit-guest/:guestId', guestController.updateGuest);
 router.get('/guest-dashboard', guestController.renderGuestDashboard);
 router.get('/book-hotel/:hotelId', guestController.bookHotel);
 router.get('/bookings', guestController.showBookings);
-
+router.get('/hotels', guestController.showHotelsForGuests);
 
 module.exports = router;
