@@ -104,6 +104,14 @@
         #qrCodeModal button:hover {
             background-color: #c82333;
         }
+        td img {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 5px;
+            display: block;
+            margin: auto;
+        }
+        
     </style>
 </head>
 <body>
@@ -127,7 +135,7 @@
                         <th>Hotel Name</th>
                         <th>Address</th>
                         <th>Logo</th>
-                        <th>Actions</th>
+                        <th>QR Code</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -143,13 +151,17 @@
                                 <% } %>
                             </td>
                             <td>
-                                <button class="action-btn qr" onclick="previewQRCode('<%= hotel.qrCode %>')">Show QR</button>
-                                <a href="/hotels/generate-qr/<%= hotel._id %>" class="action-btn view">Generate QR Code</a>
+                                <% if (hotel.qrCode) { %>
+                                    <img src="<%= hotel.qrCode %>" alt="QR Code" style="width: 100px; border-radius: 5px;">
+                                <% } else { %>
+                                    No QR Code
+                                <% } %>
                             </td>
                         </tr>
                     <% }); %>
                 </tbody>
             </table>
+            
         <% } %>
     </div>
 

@@ -65,9 +65,14 @@
             color: #d3d3d3;
         }
         .hotel-list img {
-            border-radius: 10px;
             margin-top: 10px;
+            border: 1px solid #444;
+            padding: 5px;
+            border-radius: 10px;
+            display: block;
+            max-width: 150px;
         }
+        
     </style>
 </head>
 <body>
@@ -98,9 +103,15 @@
                         <% if (hotel.logo) { %>
                             <img src="/uploads/<%= hotel.logo %>" alt="Hotel Logo" style="width: 150px;">
                         <% } %>
+                        <% if (hotel.qrCode) { %>
+                            <p><strong>QR Code:</strong></p>
+                            <img src="<%= hotel.qrCode %>" alt="QR Code" style="width: 150px;">
+                        <% } else { %>
+                            <p>No QR Code available.</p>
+                        <% } %>
                     </li>
                 <% }); %>
-            </ul>
+            </ul>            
         <% } %>
     </div>
 
