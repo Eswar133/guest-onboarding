@@ -95,25 +95,43 @@
         <% if (hotels.length === 0) { %>
             <p class="text-center">No hotels available at the moment.</p>
         <% } else { %>
-            <ul class="hotel-list">
-                <% hotels.forEach(hotel => { %>
-                    <li>
-                        <h3><%= hotel.name %></h3>
-                        <p><strong>Address:</strong> <%= hotel.address %></p>
-                        <% if (hotel.logo) { %>
-                            <img src="/uploads/<%= hotel.logo %>" alt="Hotel Logo" style="width: 150px;">
-                        <% } %>
-                        <% if (hotel.qrCode) { %>
-                            <p><strong>QR Code:</strong></p>
-                            <img src="<%= hotel.qrCode %>" alt="QR Code" style="width: 150px;">
-                        <% } else { %>
-                            <p>No QR Code available.</p>
-                        <% } %>
-                    </li>
-                <% }); %>
-            </ul>            
+            <table class="table table-dark table-striped table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Hotel Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Logo</th>
+                        <th scope="col">QR Code</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% hotels.forEach((hotel, index) => { %>
+                        <tr>
+                            <th scope="row"><%= index + 1 %></th>
+                            <td><%= hotel.name %></td>
+                            <td><%= hotel.address %></td>
+                            <td>
+                                <% if (hotel.logo) { %>
+                                    <img src="/uploads/<%= hotel.logo %>" alt="Hotel Logo" class="img-fluid rounded" style="width: 100px; height: auto;">
+                                <% } else { %>
+                                    <span>No Logo</span>
+                                <% } %>
+                            </td>
+                            <td>
+                                <% if (hotel.qrCode) { %>
+                                    <img src="<%= hotel.qrCode %>" alt="QR Code" class="img-fluid rounded" style="width: 100px; height: auto;">
+                                <% } else { %>
+                                    <span>No QR Code</span>
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
         <% } %>
     </div>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
