@@ -12,6 +12,8 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            overflow: hidden;
+            position: relative;
         }
         .navbar {
             display: flex;
@@ -20,11 +22,19 @@
             padding: 15px 30px;
             background-color: #1e1e1e;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+            z-index: 10;
+        }
+        .navbar h1 {
+            margin: 0;
+            color: #4caf50;
+            font-size: 24px;
+            font-weight: bold;
         }
         .navbar a {
             color: #03a9f4;
-            text-decoration: none;
             margin-left: 15px;
+            text-decoration: none;
+            font-weight: 500;
         }
         .navbar a:hover {
             text-decoration: underline;
@@ -37,57 +47,116 @@
             margin: 30px auto;
             width: 100%;
             max-width: 800px;
+            animation: fadeInUp 0.6s ease-out;
         }
-        h1 {
-            color: #4caf50;
-            text-align: center;
-        }
-        h2 {
+        table {
+            width: 100%;
+            border-collapse: collapse;
             margin-top: 20px;
-            text-align: center;
+        }
+        table, th, td {
+            border: 1px solid #444;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #2e2e2e;
             color: #bdbdbd;
         }
-        .hotel-list {
-            list-style: none;
-            padding: 0;
-        }
-        .hotel-list li {
-            background-color: #2e2e2e;
-            border-radius: 5px;
-            padding: 15px;
-            margin: 15px 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-        }
-        .hotel-list h3 {
-            color: #4caf50;
-        }
-        .hotel-list p {
+        td {
             color: #d3d3d3;
         }
-        .hotel-list img {
-            margin-top: 10px;
-            border: 1px solid #444;
-            padding: 5px;
-            border-radius: 10px;
+        td img {
+            max-width: 100px;
+            border-radius: 5px;
             display: block;
-            max-width: 150px;
+            margin: auto;
         }
-        
+        .action-btn {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 5px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .action-btn.qr {
+            background-color: #03a9f4;
+        }
+        .action-btn.view {
+            background-color: #4caf50;
+        }
+        .action-btn:hover {
+            opacity: 0.8;
+        }
+        #qrCodeModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #1e1e1e;
+            color: #f1f1f1;
+            padding: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            border-radius: 10px;
+        }
+        #qrCodeModal button {
+            margin-top: 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #qrCodeModal button:hover {
+            background-color: #c82333;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        @media (max-width: 480px) {
+            .navbar h1 {
+                font-size: 20px;
+            }
+            .container {
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="navbar-brand">
-            <a href="/">Guest Onboarding</a>
-        </div>
-        <div class="navbar-links">
+    <div id="particles-js"></div>
+    <div class="navbar">
+        <h1>Guest Onboarding</h1>
+        <div>
             <% if (!user) { %>
                 <a href="/auth/login">Login</a>
-            <% } else if (user.role === 'Main Admin' || user.role === 'Guest Admin') { %>
+            <% } else { %>
                 <a href="/auth/logout">Logout</a>
             <% } %>
         </div>
-    </nav>
+    </div>
 
     <div class="container">
         <h1>Welcome to Guest Onboarding</h1>
@@ -95,34 +164,34 @@
         <% if (hotels.length === 0) { %>
             <p class="text-center">No hotels available at the moment.</p>
         <% } else { %>
-            <table class="table table-dark table-striped table-hover">
-                <thead class="table-light">
+            <table class="table table-dark table-striped">
+                <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Hotel Name</th>
-                        <th scope="col">Address</th>
-                        <th scope="col">Logo</th>
-                        <th scope="col">QR Code</th>
+                        <th>#</th>
+                        <th>Hotel Name</th>
+                        <th>Address</th>
+                        <th>Logo</th>
+                        <th>QR Code</th>
                     </tr>
                 </thead>
                 <tbody>
                     <% hotels.forEach((hotel, index) => { %>
                         <tr>
-                            <th scope="row"><%= index + 1 %></th>
+                            <td><%= index + 1 %></td>
                             <td><%= hotel.name %></td>
                             <td><%= hotel.address %></td>
                             <td>
                                 <% if (hotel.logo) { %>
-                                    <img src="/uploads/<%= hotel.logo %>" alt="Hotel Logo" class="img-fluid rounded" style="width: 100px; height: auto;">
+                                    <img src="/uploads/<%= hotel.logo %>" alt="Hotel Logo">
                                 <% } else { %>
-                                    <span>No Logo</span>
+                                    No Logo
                                 <% } %>
                             </td>
                             <td>
                                 <% if (hotel.qrCode) { %>
-                                    <img src="<%= hotel.qrCode %>" alt="QR Code" class="img-fluid rounded" style="width: 100px; height: auto;">
+                                    <img src="<%= hotel.qrCode %>" alt="QR Code">
                                 <% } else { %>
-                                    <span>No QR Code</span>
+                                    No QR Code
                                 <% } %>
                             </td>
                         </tr>
@@ -131,8 +200,34 @@
             </table>
         <% } %>
     </div>
-    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize Particle.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#ffffff" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out" }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" }
+                },
+                modes: {
+                    repulse: { distance: 100, duration: 0.4 },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+    </script>
 </body>
 </html>

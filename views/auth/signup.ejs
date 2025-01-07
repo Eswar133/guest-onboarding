@@ -9,13 +9,16 @@
         body {
             background-color: #121212;
             color: #f1f1f1;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
+            overflow: hidden;
+            position: relative;
         }
+
         .container {
             background-color: #1e1e1e;
             border-radius: 10px;
@@ -23,36 +26,103 @@
             padding: 30px;
             width: 100%;
             max-width: 400px;
+            animation: fadeInUp 0.6s ease-out;
         }
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         .form-group label {
             color: #bdbdbd;
+            font-weight: 500;
         }
+
         .btn {
             background-color: #4caf50;
             color: white;
+            font-weight: bold;
+            border-radius: 50px;
+            transition: all 0.3s ease;
         }
+
         .btn:hover {
             background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
         a {
             color: #03a9f4;
+            text-decoration: none;
+            font-weight: 500;
         }
+
         a:hover {
             text-decoration: underline;
         }
+
         .alert {
-            background-color: #45a049;
+            background-color: #ff6b6b;
             color: white;
             border: none;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .form-check-label {
+            font-weight: 400;
+        }
+
+        /* Keyframes for fade-in animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 20px;
+            }
+
+            .btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+
+        /* Particle effect styling */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
     </style>
 </head>
 <body>
+    <div id="particles-js"></div>
     <div class="container">
-        <h2 class="text-center">Signup</h2>
+        <h2>Signup</h2>
 
         <% if (message && message.length > 0) { %>
-        <div class="alert alert-danger text-center"><%= message[0] %></div>
+        <div class="alert"><%= message[0] %></div>
         <% } %>
 
         <form action="/auth/signup" method="POST">
@@ -82,5 +152,32 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize Particle.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 100, density: { enable: true, value_area: 800 } },
+                color: { value: "#ffffff" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 2, direction: "none", random: true, straight: false, out_mode: "out" }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" }
+                },
+                modes: {
+                    repulse: { distance: 100, duration: 0.4 },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+    </script>
 </body>
 </html>
